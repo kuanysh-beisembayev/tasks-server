@@ -3,6 +3,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    port: int = 8000
     debug: bool = False
     database_url: PostgresDsn
 

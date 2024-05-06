@@ -21,4 +21,4 @@ app.add_api_route('/tasks/{task_id}', handlers.task_update_handler, methods=['pu
 register_tortoise(app, config=TORTOISE_CONFIG)
 
 if __name__ == '__main__':
-    run('code.app:app', host='0.0.0.0', reload=settings.debug)
+    run('code.app:app', host='0.0.0.0', reload=settings.debug, port=settings.port)
