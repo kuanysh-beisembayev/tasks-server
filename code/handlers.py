@@ -10,7 +10,7 @@ from code.utils import serialize_task
 
 
 async def task_list_handler() -> Response:
-    tasks = await Task.all().order_by('-priority')
+    tasks = await Task.all().order_by('-updated_at', '-created_at')
     return JSONResponse([
         serialize_task(task) for task in tasks
     ])
