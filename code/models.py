@@ -7,12 +7,10 @@ from tortoise.models import Model
 class Task(Model):
     class Status(StrEnum):
         NEW = 'new'
-        IN_PROGRESS = 'in_progress'
-        DONE = 'done'
+        COMPLETED = 'completed'
 
     id = fields.UUIDField(pk=True)  # noqa: A003
     name = fields.CharField(max_length=100, unique=True)
-    priority = fields.IntField(default=0)
     status = fields.CharEnumField(Status)
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
