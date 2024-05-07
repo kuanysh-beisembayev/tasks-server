@@ -12,7 +12,6 @@ class Task(Model):
 
     id = fields.UUIDField(pk=True)  # noqa: A003
     name = fields.CharField(max_length=100, unique=True)
-    description = fields.CharField(max_length=100, null=True)
     priority = fields.IntField(default=0)
     status = fields.CharEnumField(Status)
     created_at = fields.DatetimeField(auto_now_add=True)

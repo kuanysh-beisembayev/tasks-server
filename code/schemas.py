@@ -10,5 +10,4 @@ class TaskCreateSchema(BaseModel):
 
 class TaskUpdateSchema(BaseModel):
     name: str
-    description: str | None
     status: Task.Status

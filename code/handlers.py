@@ -44,7 +44,6 @@ async def task_update_handler(task_id: UUID, data: TaskUpdateSchema) -> Response
         return Response(status_code=status.HTTP_404_NOT_FOUND)
 
     task.name = data.name
-    task.description = data.description
     task.status = data.status
     await task.save()
     return JSONResponse(serialize_task(task))
