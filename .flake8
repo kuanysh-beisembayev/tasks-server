@@ -2,5 +2,5 @@
 max-line-length = 100
 import-order-style = google
 application-import-names = code
-exclude = venv
+exclude = venv, migrations
 per-file-ignores = code/__init__.py:A005

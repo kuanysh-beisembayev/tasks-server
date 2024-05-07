@@ -29,7 +29,7 @@ async def task_create_handler(data: TaskCreateSchema) -> Response:
     try:
         task = await Task.create(
             name=data.name,
-            status=Task.Status.NEW,
+            status=data.status,
         )
     except IntegrityError:
         return Response(status_code=status.HTTP_400_BAD_REQUEST)
