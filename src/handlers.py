@@ -2,7 +2,6 @@ from uuid import UUID
 
 from fastapi import Depends, Response, status
 from fastapi.responses import JSONResponse
-from tortoise.exceptions import IntegrityError
 
 from src.dependencies import get_user
 from src.models import Task, User
@@ -36,16 +35,12 @@ async def task_detail_handler(task_id: UUID, user: User = Depends(get_user)) -> 
 
 
 async def task_create_handler(data: TaskCreateSchema, user: User = Depends(get_user)) -> Response:
-    try:
-        task = await Task.create(
-            name=data.name,
-            description=data.description,
-            status=data.status,
-            user=user,
-        )
-    except IntegrityError:
-        return Response(status_code=status.HTTP_400_BAD_REQUEST)
-
+    task = await Task.create(
+        name=data.name,
+        description=data.description,
+        status=Task.Status.NEW,
+        user=user,
+    )
     return JSONResponse(serialize_task(task))
 
 
