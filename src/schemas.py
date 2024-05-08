@@ -19,7 +19,6 @@ class TokenPayloadSchema(BaseModel):
 class TaskCreateSchema(BaseModel):
     name: str
     description: str | None = None
-    status: Task.Status
 
 
 class TaskUpdateSchema(BaseModel):

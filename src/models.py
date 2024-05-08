@@ -22,7 +22,7 @@ class Task(Model):
 
     id = fields.UUIDField(pk=True)  # noqa: A003
     user = fields.ForeignKeyField('models.User', related_name='tasks', on_delete=fields.CASCADE)
-    name = fields.CharField(max_length=100, unique=True)
+    name = fields.CharField(max_length=100)
     description = fields.CharField(max_length=100, null=True)
     status = fields.CharEnumField(Status)
     created_at = fields.DatetimeField(auto_now_add=True)
