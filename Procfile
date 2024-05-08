@@ -1,2 +1,2 @@
-web: python -m code.app
+web: python -m src.app
 release: aerich upgrade

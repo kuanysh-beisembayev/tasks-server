@@ -6,9 +6,9 @@ from jwt import decode, encode, InvalidTokenError
 from passlib.context import CryptContext
 from pydantic import ValidationError
 
-from code.config import settings
-from code.models import Task, User
-from code.schemas import TokenPayloadSchema
+from src.config import settings
+from src.models import Task, User
+from src.schemas import TokenPayloadSchema
 
 ACCESS_TOKEN_TTL = timedelta(days=1)
 

@@ -3,8 +3,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from tortoise.contrib.fastapi import register_tortoise
 from uvicorn import run
 
-from code import handlers
-from code.config import settings, TORTOISE_CONFIG
+from src import handlers
+from src.config import settings, TORTOISE_CONFIG
 
 app = FastAPI()
 app.add_middleware(
@@ -22,4 +22,4 @@ app.add_api_route('/tasks/{task_id}', handlers.task_update_handler, methods=['pu
 register_tortoise(app, config=TORTOISE_CONFIG)
 
 if __name__ == '__main__':
-    run('code.app:app', host='0.0.0.0', reload=settings.debug, port=settings.port)
+    run('src.app:app', host='0.0.0.0', reload=settings.debug, port=settings.port)

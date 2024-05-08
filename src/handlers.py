@@ -4,10 +4,10 @@ from fastapi import Depends, Response, status
 from fastapi.responses import JSONResponse
 from tortoise.exceptions import IntegrityError
 
-from code.dependencies import get_user
-from code.models import Task, User
-from code.schemas import AuthSchema, TaskCreateSchema, TaskUpdateSchema
-from code.utils import create_access_token, get_user_by_credentials, serialize_task
+from src.dependencies import get_user
+from src.models import Task, User
+from src.schemas import AuthSchema, TaskCreateSchema, TaskUpdateSchema
+from src.utils import create_access_token, get_user_by_credentials, serialize_task
 
 
 async def tokens_handler(data: AuthSchema) -> Response:

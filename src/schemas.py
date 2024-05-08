@@ -3,7 +3,7 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from code.models import Task
+from src.models import Task
 
 
 class AuthSchema(BaseModel):

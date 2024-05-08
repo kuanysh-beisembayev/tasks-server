@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from code.models import User
-from code.utils import parse_access_token
+from src.models import User
+from src.utils import parse_access_token
 
 security = HTTPBearer()
 
