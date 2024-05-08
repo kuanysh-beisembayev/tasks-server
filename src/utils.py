@@ -19,6 +19,7 @@ def serialize_task(task: Task) -> Mapping:
     return {
         'id': str(task.id),
         'name': task.name,
+        'description': task.description,
         'status': task.status,
         'created_at': task.created_at.isoformat(),
     }

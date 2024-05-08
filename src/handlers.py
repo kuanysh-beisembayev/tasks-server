@@ -39,6 +39,7 @@ async def task_create_handler(data: TaskCreateSchema, user: User = Depends(get_u
     try:
         task = await Task.create(
             name=data.name,
+            description=data.description,
             status=data.status,
             user=user,
         )
@@ -57,6 +58,7 @@ async def task_update_handler(
         return Response(status_code=status.HTTP_404_NOT_FOUND)
 
     task.name = data.name
+    task.description = data.description
     task.status = data.status
     await task.save()
     return JSONResponse(serialize_task(task))
