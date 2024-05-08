@@ -8,6 +8,7 @@ services:
     environment:
       DEBUG: "true"
       DATABASE_URL: "postgres://postgres:postgres@postgres/postgres"
+      SECRET_KEY: "79e297b2ca9872a6f6170e9b95f29e30"
     tty: true
     command: python -m code.app
     ports:

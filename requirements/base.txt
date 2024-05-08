@@ -3,3 +3,6 @@ pydantic-settings
 uvicorn
 tortoise-orm[asyncpg]
 aerich
+passlib
+bcrypt==4.0.1
+pyjwt
