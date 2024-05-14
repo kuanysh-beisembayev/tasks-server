@@ -10,7 +10,7 @@ from src.config import settings
 from src.models import Task, User
 from src.schemas import TokenPayloadSchema
 
-ACCESS_TOKEN_TTL = timedelta(days=1)
+ACCESS_TOKEN_TTL = timedelta(days=7)
 
 crypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
