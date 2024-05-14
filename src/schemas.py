@@ -3,8 +3,6 @@ from uuid import UUID
 
 from pydantic import BaseModel
 
-from src.models import Task
-
 
 class AuthSchema(BaseModel):
     username: str
@@ -24,4 +22,7 @@ class TaskCreateSchema(BaseModel):
 class TaskUpdateSchema(BaseModel):
     name: str
     description: str | None = None
-    status: Task.Status
+
+
+class TaskStatusUpdateSchema(BaseModel):
+    is_completed: bool

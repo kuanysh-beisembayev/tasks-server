@@ -1,3 +1,4 @@
+from datetime import datetime, UTC
 from uuid import UUID
 
 from fastapi import Depends, Response, status
@@ -5,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 from src.dependencies import get_user
 from src.models import Task, User
-from src.schemas import AuthSchema, TaskCreateSchema, TaskUpdateSchema
+from src.schemas import AuthSchema, TaskCreateSchema, TaskStatusUpdateSchema, TaskUpdateSchema
 from src.utils import create_access_token, get_user_by_credentials, serialize_task
 
 
@@ -38,7 +39,6 @@ async def task_create_handler(data: TaskCreateSchema, user: User = Depends(get_u
     task = await Task.create(
         name=data.name,
         description=data.description,
-        status=Task.Status.NEW,
         user=user,
     )
     return JSONResponse(serialize_task(task))
@@ -54,6 +54,18 @@ async def task_update_handler(
 
     task.name = data.name
     task.description = data.description
-    task.status = data.status
+    await task.save()
+    return JSONResponse(serialize_task(task))
+
+
+async def task_status_update_handler(
+    task_id: UUID, data: TaskStatusUpdateSchema, user: User = Depends(get_user),
+) -> Response:
+    task = await Task.get_or_none(id=task_id, user=user)
+
+    if task is None:
+        return Response(status_code=status.HTTP_404_NOT_FOUND)
+
+    task.completed_at = datetime.now(UTC) if data.is_completed else None
     await task.save()
     return JSONResponse(serialize_task(task))
