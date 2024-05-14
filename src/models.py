@@ -1,5 +1,3 @@
-from enum import StrEnum
-
 from tortoise import fields
 from tortoise.models import Model
 
@@ -16,15 +14,11 @@ class User(Model):
 
 
 class Task(Model):
-    class Status(StrEnum):
-        NEW = 'new'
-        COMPLETED = 'completed'
-
     id = fields.UUIDField(pk=True)  # noqa: A003
     user = fields.ForeignKeyField('models.User', related_name='tasks', on_delete=fields.CASCADE)
     name = fields.CharField(max_length=100)
     description = fields.CharField(max_length=100, null=True)
-    status = fields.CharEnumField(Status)
+    completed_at = fields.DatetimeField(null=True)
     created_at = fields.DatetimeField(auto_now_add=True)
     updated_at = fields.DatetimeField(auto_now=True)
 

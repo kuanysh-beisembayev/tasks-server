@@ -19,6 +19,7 @@ app.add_api_route('/tasks', handlers.task_list_handler)
 app.add_api_route('/tasks/{task_id}', handlers.task_detail_handler)
 app.add_api_route('/tasks', handlers.task_create_handler, methods=['post'])
 app.add_api_route('/tasks/{task_id}', handlers.task_update_handler, methods=['put'])
+app.add_api_route('/tasks/{task_id}/status', handlers.task_status_update_handler, methods=['post'])
 register_tortoise(app, config=TORTOISE_CONFIG)
 
 if __name__ == '__main__':
