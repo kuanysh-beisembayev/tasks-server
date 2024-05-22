@@ -20,7 +20,22 @@ async def tokens_handler(data: AuthSchema) -> Response:
 
 
 async def task_list_handler(user: User = Depends(get_user)) -> Response:
-    tasks = await Task.filter(user=user).order_by('-updated_at', '-created_at')
+    tasks = await (
+        Task
+        .filter(user=user, completed_at__isnull=True)
+        .order_by('-is_important', '-created_at')  # noqa: C812
+    )
+    return JSONResponse([
+        serialize_task(task) for task in tasks
+    ])
+
+
+async def completed_task_list_handler(user: User = Depends(get_user)) -> Response:
+    tasks = await (
+        Task
+        .filter(user=user, completed_at__isnull=False)
+        .order_by('-completed_at')  # noqa: C812
+    )
     return JSONResponse([
         serialize_task(task) for task in tasks
     ])
@@ -52,6 +67,9 @@ async def task_update_handler(
 
     if task is None:
         return Response(status_code=status.HTTP_404_NOT_FOUND)
+
+    if task.completed_at:
+        return Response(status_code=status.HTTP_400_BAD_REQUEST)
 
     task.name = data.name
     task.description = data.description
