@@ -1,8 +1,6 @@
 services:
   app:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile.dev
+    build: .
     volumes:
       - .:/app
     environment:
