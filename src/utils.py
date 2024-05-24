@@ -17,15 +17,19 @@ crypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 def serialize_task(task: Task) -> Mapping:
     completed_at = task.completed_at
+    deadline_at = task.deadline_at
 
     if completed_at:
         completed_at = completed_at.isoformat()
+
+    if deadline_at:
+        deadline_at = deadline_at.isoformat()
 
     return {
         'id': str(task.id),
         'name': task.name,
         'description': task.description,
-        'deadline': task.deadline_at.isoformat(),
+        'deadline_at': deadline_at,
         'created_at': task.created_at.isoformat(),
         'completed_at': completed_at,
         'is_important': task.is_important,
