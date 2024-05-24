@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 
 from src.dependencies import get_user
 from src.models import Task, User
-from src.schemas import AuthSchema, TaskCreateSchema, TaskStatusUpdateSchema, TaskUpdateSchema
+from src.schemas import AuthSchema, TaskSchema, TaskStatusUpdateSchema
 from src.utils import create_access_token, get_user_by_credentials, serialize_task
 
 
@@ -50,11 +50,9 @@ async def task_detail_handler(task_id: UUID, user: User = Depends(get_user)) -> 
     return JSONResponse(serialize_task(task))
 
 
-async def task_create_handler(data: TaskCreateSchema, user: User = Depends(get_user)) -> Response:
+async def task_create_handler(data: TaskSchema, user: User = Depends(get_user)) -> Response:
     task = await Task.create(
         name=data.name,
-        description=data.description,
-        deadline_at=data.deadline_at,
         is_important=data.is_important,
         user=user,
     )
@@ -62,7 +60,7 @@ async def task_create_handler(data: TaskCreateSchema, user: User = Depends(get_u
 
 
 async def task_update_handler(
-    task_id: UUID, data: TaskUpdateSchema, user: User = Depends(get_user),
+    task_id: UUID, data: TaskSchema, user: User = Depends(get_user),
 ) -> Response:
     task = await Task.get_or_none(id=task_id, user=user)
 
@@ -73,8 +71,6 @@ async def task_update_handler(
         return Response(status_code=status.HTTP_400_BAD_REQUEST)
 
     task.name = data.name
-    task.description = data.description
-    task.deadline_at = data.deadline_at
     task.is_important = data.is_important
     await task.save()
     return JSONResponse(serialize_task(task))

@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, constr
 
 
 class AuthSchema(BaseModel):
@@ -14,17 +14,8 @@ class TokenPayloadSchema(BaseModel):
     created_at: datetime
 
 
-class TaskCreateSchema(BaseModel):
-    name: str
-    description: str | None = None
-    deadline_at: datetime | None = None
-    is_important: bool
-
-
-class TaskUpdateSchema(BaseModel):
-    name: str
-    description: str | None = None
-    deadline_at: datetime | None = None
+class TaskSchema(BaseModel):
+    name: constr(min_length=1, max_length=100)
     is_important: bool
 
 
