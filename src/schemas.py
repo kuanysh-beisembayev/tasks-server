@@ -17,12 +17,14 @@ class TokenPayloadSchema(BaseModel):
 class TaskCreateSchema(BaseModel):
     name: str
     description: str | None = None
+    deadline_at: datetime | None = None
     is_important: bool
 
 
 class TaskUpdateSchema(BaseModel):
     name: str
     description: str | None = None
+    deadline_at: datetime | None = None
     is_important: bool
 
 
