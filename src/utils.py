@@ -21,16 +21,9 @@ def serialize_task(task: Task) -> Mapping:
     if completed_at:
         completed_at = completed_at.isoformat()
 
-    deadline_at = task.deadline_at
-
-    if deadline_at:
-        deadline_at = deadline_at.isoformat()
-
     return {
         'id': str(task.id),
         'name': task.name,
-        'description': task.description,
-        'deadline_at': deadline_at,
         'created_at': task.created_at.isoformat(),
         'completed_at': completed_at,
         'is_important': task.is_important,
