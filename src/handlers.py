@@ -54,6 +54,7 @@ async def task_create_handler(data: TaskCreateSchema, user: User = Depends(get_u
     task = await Task.create(
         name=data.name,
         description=data.description,
+        deadline=data.deadline,
         is_important=data.is_important,
         user=user,
     )
@@ -73,6 +74,7 @@ async def task_update_handler(
 
     task.name = data.name
     task.description = data.description
+    task.deadline = data.deadline
     task.is_important = data.is_important
     await task.save()
     return JSONResponse(serialize_task(task))
