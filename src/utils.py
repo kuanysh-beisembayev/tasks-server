@@ -17,10 +17,11 @@ crypt_context = CryptContext(schemes=['bcrypt'], deprecated='auto')
 
 def serialize_task(task: Task) -> Mapping:
     completed_at = task.completed_at
-    deadline_at = task.deadline_at
 
     if completed_at:
         completed_at = completed_at.isoformat()
+
+    deadline_at = task.deadline_at
 
     if deadline_at:
         deadline_at = deadline_at.isoformat()
