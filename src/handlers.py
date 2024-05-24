@@ -76,6 +76,16 @@ async def task_update_handler(
     return JSONResponse(serialize_task(task))
 
 
+async def task_delete_handler(task_id: UUID, user: User = Depends(get_user)) -> Response:
+    task = await Task.get_or_none(id=task_id, user=user)
+
+    if task is None:
+        return Response(status_code=status.HTTP_404_NOT_FOUND)
+
+    await task.delete()
+    return Response(status_code=status.HTTP_200_OK)
+
+
 async def task_status_update_handler(
     task_id: UUID, data: TaskStatusUpdateSchema, user: User = Depends(get_user),
 ) -> Response:
